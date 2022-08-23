@@ -1,4 +1,63 @@
-<div class="search">
+<div class="container" *ngIf="weatherData">
+  <div class="search">
+    <form #form="ngForm" (submit)="onSubmit()">
+      Right now in
+      <input
+        type="text"
+        name="city"
+        [(ngModel)]="cityName"
+        (click)="onHandleClear()"
+      />
+
+      <a
+        href="https://maps.google.com/?q={{ weatherData.coord.lat }},{{
+          weatherData.coord.lon
+        }}"
+        target="_blank"
+      >
+        <img class="weather__location" src="../assets/expand.png"
+      /></a>
+
+      , there's {{ weatherData.weather[0].description }}.
+    </form>
+  </div>
+  <div class="weather__info">
+    <div class="weather-box weather__icon">
+      <img
+        src="http://openweathermap.org/img/wn/{{
+          weatherData.weather[0].icon
+        }}@2x.png"
+        alt=""
+      />
+    </div>
+    <div class="weather-box weather__value">
+      <div class="weather__main-value">
+        {{ weatherData.main.temp | number: "1.0-0" }}°F
+      </div>
+      <div class="weather__sub-value">
+        {{ weatherData.main.temp_min | number: "1.0-0" }}°F/{{
+          weatherData.main.temp_max | number: "1.0-0"
+        }}°F
+      </div>
+    </div>
+    <div class="weather-box weather__more-info">
+      <div class="more-info">
+        <img src="../assets/wind-new.png" alt="Wind speed" />
+        <p>{{ weatherData.wind.speed | number: "1.0-0" }}<span> km/h</span></p>
+      </div>
+      <div class="more-info">
+        <img src="../assets/humidity-new.png" alt="Humidity" />
+        <p>{{ weatherData.main.humidity | number: "1.0-0" }}<span> %</span></p>
+      </div>
+      <div class="more-info">
+        <img src="../assets/thermometer.png" alt="Air pressure" />
+        <p>{{ weatherData.main.pressure }}<span> Pa</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="search">
   <form #form="ngForm" (submit)="onSubmit()">
     <input
       type="text"
@@ -7,9 +66,9 @@
       [(ngModel)]="cityName"
     />
   </form>
-</div>
+</div> -->
 
-<div class="container" *ngIf="weatherData">
+<!-- <div class="container" *ngIf="weatherData">
   <div class="upper-data">
     <img src="../assets/hot.jpeg" *ngIf="weatherData.main.temp > 51" />
     <img src="../assets/cold.jpeg" *ngIf="weatherData.main.temp <= 50" />
@@ -64,7 +123,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- <div class="container">
   <div class="upper-data">
